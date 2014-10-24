@@ -1,0 +1,3 @@
+name = Go to Comments
+description = Adds a jQuery block with a comments counter and a button allowing scrolling to comments position
+core = 7.x

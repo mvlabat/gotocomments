@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Module file for Go to Comments
+ */
+ 
+/**
+ * Add the block to all the pages with comments
+ */
+ 
+function gotocomments_preprocess_page(&$variables) {
+  if (isset($variables['node']) && $variables['node']->comment == 2) {
+    drupal_add_js(drupal_get_path('module', 'gotocomments') . '/gotocomments.js');
+	drupal_add_js(array('gotocomments' => array(
+	  'comment_count' => $variables['node']->comment_count
+	)), 'setting');
+    $variables['scripts'] = drupal_get_js();
+    drupal_add_css(drupal_get_path('module', 'gotocomments') . '/gotocomments.css');
+    $variables['styles'] = drupal_get_css();
+  }
+}
