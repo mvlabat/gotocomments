@@ -6,17 +6,25 @@
  */
  
 /**
- * Add the block to all the pages with comments
+ * Implements hook_preprocess_page().
+ *
+ * Add the block to all the pages with comments.
+ *
+ * @param array $variables
+ *   Preprocess variables array.
  */
- 
 function gotocomments_preprocess_page(&$variables) {
   if (isset($variables['node']) && $variables['node']->comment == 2) {
-    drupal_add_js(drupal_get_path('module', 'gotocomments') . '/gotocomments.js');
-	drupal_add_js(array('gotocomments' => array(
-	  'comment_count' => $variables['node']->comment_count
-	)), 'setting');
+    $path = drupal_get_path('module', 'gotocomments');
+    drupal_add_js($path . '/gotocomments.js');
+    $settings = array(
+      'gotocomments' => array(
+        'comment_count' => $variables['node']->comment_count,
+      ),
+    );
+    drupal_add_js($settings, 'setting');
     $variables['scripts'] = drupal_get_js();
-    drupal_add_css(drupal_get_path('module', 'gotocomments') . '/gotocomments.css');
+    drupal_add_css($path . '/gotocomments.css');
     $variables['styles'] = drupal_get_css();
   }
 }
